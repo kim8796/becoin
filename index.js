@@ -6,10 +6,14 @@ var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
+var userRouter = require('./routes/index');
+
 
 app.set('port',(process.env.PORT||3000));
 
 app.use(express.static(__dirname+'/public'));
+
+app.use('/users',userRouter);
 
 //mongoose CONFIGURE APP TO USE bodyParser
 app.use(bodyParser.urlencoded({ extended:true}));
@@ -27,6 +31,13 @@ mongoose.connect('mongodb://kim8796@localhost:27017/admin')
  .catch((err) => console.error(err));
 
 	
+//
+//
+//
+
+// Model 
+
+var Users = require('./models/users');
 
 
 //views is directory for all template files
