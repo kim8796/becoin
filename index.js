@@ -26,7 +26,12 @@ db.once('open',function(){
  console.log("Connected to mongodb server");
 });
 
-mongoose.connect('mongodb://kim8796@localhost:27017/admin')
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://kim8796@localhost:27017/becoin',{
+	'auth':{ 'authSource' : 'admin' },
+	'user':'appuser1',
+	'pass':'appuser1',
+	'useNewUrlParser':true})
  .then(() => console.log('connected succesful'))
  .catch((err) => console.error(err));
 
@@ -82,4 +87,8 @@ io.on('connection',function(socket){
 
 http.listen(app.get('port'),function(){
 	console.log('Node app is running on port', app.get('port'));
+});
+
+app.listen(80,function(){
+	console.log('http listhen 80');
 });
