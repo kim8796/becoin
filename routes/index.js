@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var users = require('../models/users');
-
+router.use(express.json());
 
 /* GET home page. */
+
 
 //Get All Users
 
@@ -29,9 +30,27 @@ router.get('/uid/:uid',(req,res) =>{
 });
 
 router.post('/',function(req,res){
+	console.log(req.body);
 	users.create(req.body)
-		.then(user=>res.send(user))
+		.then(user=>{
+			console.log(user);
+			res.send(user);
+		})
 		.catch(err=>res.status(500).send(err));
 });
+
+
+router.put('/uid/:uid',(req,res) =>{
+	users.updateByUid(req.params.uid,req.body)
+	.then(user => res.send(user))
+	.catch(err => res.status(500).send(err));
+});
+
+router.delete('uid/:uid',(req,res) =>{
+	user.deleteByUid(req.params.uid).then(()=>res.sendStatus(200))
+	.catch(err => res.status(500).send(err));
+});
+
+
 
 module.exports = router;

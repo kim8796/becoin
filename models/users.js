@@ -3,14 +3,11 @@ var Schema = mongoose.Schema;
 
 var usersSchema = new Schema({
 	u_id:{type : String, required : true},
-	u_Name:{type : String, required: true},
-	},
-	{ timestamps: true
+	u_name:{type : String},
 	});
 
 usersSchema.static.create = function(payload){
 	const us = new this(payload);
-
 	return us.save();
 };
 

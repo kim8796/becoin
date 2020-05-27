@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
+var multiparty = require('connect-multiparty');
 var userRouter = require('./routes/index');
 
 
@@ -13,11 +13,17 @@ app.set('port',(process.env.PORT||3000));
 
 app.use(express.static(__dirname+'/public'));
 
+app.use(multiparty());
+
 app.use('/users',userRouter);
 
+
 //mongoose CONFIGURE APP TO USE bodyParser
-app.use(bodyParser.urlencoded({ extended:true}));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended : true}));
+//app.use(bodyParser.json());
+
+app.use(express.json());
+
 
 var db = mongoose.connection;
 db.on('error', console.error);
