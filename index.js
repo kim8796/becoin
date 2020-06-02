@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -9,6 +10,18 @@ var multiparty = require('connect-multiparty');
 var userRouter = require('./routes/index');
 
 
+// for connect rabbitmq, amqplib 
+var msgRouter = require('./routes/message');
+var amqp = require('amqplib/callback_api');
+var amqpConn = null;
+let ch = null;
+const QUEUE = 'hello';
+const CONN_URL = 'amqp://localhost';
+app.use('/msg',msgRouter);
+
+
+
+//
 app.set('port',(process.env.PORT||3000));
 
 app.use(express.static(__dirname+'/public'));
