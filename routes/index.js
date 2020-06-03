@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 router.get('/uid/:uid',(req,res) =>{
 	users.findOneByUid(req.params.uid).then((uids)=>{
 		if(!uids) return res.status(404).send({err:'user not found'});
-		res.send('findOne successfully: ' + uids );
+		res.send(uids);
 		console.log(uids);
 	})
 	.catch(err => res.status(500).send(err));
