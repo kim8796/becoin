@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+mongoose.set('useCreateIndex',true);
+
 var usersSchema = new Schema({
 	u_id:{type : String, required : true, unique : true},
 	u_name:{type : String, required : true},
@@ -19,6 +21,7 @@ var usersSchema = new Schema({
 	});
 
 usersSchema.static.create = function(payload){
+	console.log("[model/users.js] " + payload);
 	const us = new this(payload);
 	return us.save();
 };

@@ -50,7 +50,8 @@ mongoose.connect('mongodb://kim8796@localhost:27017/becoin',{
 	'auth':{ 'authSource' : 'admin' },
 	'user':'appuser1',
 	'pass':'appuser1',
-	'useNewUrlParser':true})
+	'useNewUrlParser':true,
+	'useUnifiedTopology':true})
  .then(() => console.log('connected succesful'))
  .catch((err) => console.error(err));
 
